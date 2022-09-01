@@ -10,20 +10,27 @@ namespace Fluxograma_Pacheco.Classes
     {
         public double valorInvestido { get; set; }
         public double meses { get; set; }
-        public List<Cliente> cliente { get; set; }
+        public List<Cliente> clientes { get; set; }
+
+        public double retornarJurosCliente(Cliente clientes, double meses)
+        {
+            double montante = clientes.capital * (Math.Pow(1 + 0.07, meses / 12));
+            return montante - clientes.capital;
+
+            montante = clientes.capital * (Math.Pow(1 + 0.07, meses / 12));
+            double juros = montante - clientes.capital;
+
+            return Math.Round(juros, 2);
+        }
 
         public double retornarJurosAcumulado(List<Cliente> cliente, int meses)
         {
-            return 0;
-        }
-
-        public double retornarJurosCliente(Cliente cliente, double meses)
-        {
-            double potenciaTaxaTempo = Math.Pow(1 + 0.07, meses / 12);
-            double retornarJurosAcumulado = cliente.capital * potenciaTaxaTempo;
-            double juros = retornarJurosAcumulado - cliente.capital;
-
-            return Math.Round(juros, 2);
+            double jurosAcumulado = 0;
+            foreach (var item in cliente)
+            {
+                jurosAcumulado = jurosAcumulado + retornarJurosCliente(item, 24);
+            }
+            return jurosAcumulado;
         }
     }
 }

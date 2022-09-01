@@ -8,9 +8,25 @@ namespace FluxogramaTest
     public class Teste
     {
         [TestMethod]
-        public void Juros()
+        public void jurosDeUmClienteCorreto()
         {
             double esperado = 202.86;
+            double resultado = 0;
+
+            Cliente cliente = new Cliente();
+            cliente.capital = 1400;
+
+            Investimento invest = new Investimento();
+
+            resultado = invest.retornarJurosCliente(cliente, 24);
+
+            Assert.AreEqual(esperado, resultado);
+        }
+
+        [TestMethod]
+        public void jurosDe3Clientes()
+        {
+            double esperado = 698.58;
             double resultado = 0;
 
             Cliente cliente1 = new Cliente();
@@ -26,9 +42,9 @@ namespace FluxogramaTest
             lista.Add(cliente2);
             lista.Add(cliente3);
 
-            Investimento investimento = new Investimento();
+            Investimento invest= new Investimento();
 
-            resultado = investimento.retornarJurosCliente(lista, 24);
+            resultado = invest.retornarJurosCliente(lista, 24);
 
             Assert.AreEqual(esperado, resultado);
         }
